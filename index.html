@@ -27,7 +27,7 @@
             padding: 60px 80px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 600px;
+            max-width: 700px;
             position: relative;
             animation: fadeIn 0.8s ease-in;
         }
@@ -144,10 +144,16 @@
         }
 
         h1 {
-            font-size: 36px;
+            font-size: 32px;
             color: #333;
             margin-bottom: 40px;
             font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .name {
+            color: #e74c7c;
+            font-weight: 700;
         }
 
         .buttons {
@@ -211,50 +217,92 @@
         }
 
         .celebration h1 {
-            font-size: 48px;
+            font-size: 52px;
             color: #e74c7c;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #e74c7c, #c44569, #e74c7c);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .celebration-subtitle {
+            font-size: 28px;
+            color: #555;
             margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .angel-text {
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
         }
 
         .celebration-emoji {
-            font-size: 80px;
-            margin: 20px 0;
+            font-size: 60px;
+            margin: 15px 0;
             animation: bounce 1s ease-in-out infinite;
         }
 
         @keyframes bounce {
             0%, 100% {
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
             50% {
-                transform: translateY(-20px);
+                transform: translateY(-20px) scale(1.1);
             }
         }
 
         .photo-container {
             margin-top: 30px;
-            max-width: 400px;
+            max-width: 450px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
         }
 
-        .photo-placeholder {
+        .photo-frame {
             width: 100%;
-            height: 400px;
-            background: #f0f0f0;
+            height: 500px;
             border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 18px;
             overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            border: 8px solid white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            animation: photoGlow 3s ease-in-out infinite;
         }
 
-        .photo-placeholder img {
+        @keyframes photoGlow {
+            0%, 100% {
+                box-shadow: 0 15px 40px rgba(231, 76, 124, 0.3);
+            }
+            50% {
+                box-shadow: 0 20px 60px rgba(231, 76, 124, 0.6);
+            }
+        }
+
+        .photo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         /* Confetti animation */
@@ -282,6 +330,7 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
+            z-index: 1000;
         }
 
         .floating-heart {
@@ -304,6 +353,63 @@
                 transform: translateY(-100vh) scale(1.5);
             }
         }
+
+        .sparkles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+                max-width: 90%;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .celebration h1 {
+                font-size: 38px;
+            }
+
+            .celebration-subtitle {
+                font-size: 22px;
+            }
+
+            button {
+                font-size: 22px;
+                padding: 15px 40px;
+            }
+
+            .photo-frame {
+                height: 400px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -322,7 +428,7 @@
                 <div class="heart"></div>
             </div>
             
-            <h1>Will you be my girlfriend for life? 💕</h1>
+            <h1><span class="name">Joi Chidinma Ayibabibra Oparah</span>, will you like to be my sweetheart and val for life? 💕</h1>
             
             <div class="buttons">
                 <button class="yes-btn" onclick="celebrate()">Yes</button>
@@ -334,13 +440,12 @@
 
         <div id="celebration-page" class="celebration">
             <h1>YAY! 🎉</h1>
-            <div class="celebration-emoji">🎊💕✨</div>
+            <div class="celebration-subtitle">I am in love with my <span class="angel-text">Angel</span></div>
+            <div class="celebration-emoji">💕✨🎊💖✨💕</div>
             
             <div class="photo-container">
-                <div class="photo-placeholder">
-                    <!-- You can replace this with your photo by adding: -->
-                    <!-- <img src="your-photo.jpg" alt="Us"> -->
-                    <p>Add your special photo here! 📸</p>
+                <div class="photo-frame">
+                    <img src="couple-photo.jpg" alt="Our Beautiful Moment Together">
                 </div>
             </div>
         </div>
