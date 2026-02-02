@@ -163,7 +163,8 @@
             align-items: center;
             margin-top: 20px;
             position: relative;
-            min-height: 80px;
+            min-height: 100px;
+            padding: 20px;
         }
 
         button {
@@ -181,6 +182,8 @@
             background: #e74c7c;
             color: white;
             box-shadow: 0 8px 20px rgba(231, 76, 124, 0.3);
+            position: relative;
+            z-index: 10;
         }
 
         .yes-btn:hover {
@@ -193,6 +196,8 @@
             color: #666;
             position: absolute;
             transition: all 0.2s ease;
+            touch-action: none;
+            z-index: 5;
         }
 
         .no-btn:hover {
@@ -432,7 +437,7 @@
             
             <div class="buttons">
                 <button class="yes-btn" onclick="celebrate()">Yes</button>
-                <button class="no-btn" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+                <button class="no-btn" id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton(event)" onclick="moveButton(event)">No</button>
             </div>
             
             <p class="hint">"No" seems a bit shy 💜</p>
@@ -455,7 +460,12 @@
         const noBtn = document.getElementById('noBtn');
         const container = document.querySelector('.container');
         
-        function moveButton() {
+        function moveButton(event) {
+            // Prevent default touch behavior
+            if (event) {
+                event.preventDefault();
+            }
+            
             const containerRect = container.getBoundingClientRect();
             const btnRect = noBtn.getBoundingClientRect();
             
@@ -463,6 +473,7 @@
             const maxX = containerRect.width - btnRect.width - 40;
             const maxY = 200;
             
+            // Generate random position
             const randomX = Math.random() * maxX;
             const randomY = Math.random() * maxY - 100;
             
@@ -512,9 +523,12 @@
             }, 300);
         }
 
-        // Initialize button position
-        noBtn.style.position = 'absolute';
-        noBtn.style.right = '80px';
+        // Initialize button position - start on the right side
+        window.addEventListener('DOMContentLoaded', function() {
+            noBtn.style.position = 'absolute';
+            noBtn.style.right = '20px';
+            noBtn.style.top = '0px';
+        });
     </script>
 </body>
 </html>
